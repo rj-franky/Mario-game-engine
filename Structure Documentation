@@ -1,0 +1,76 @@
+the collision system works perfectly after over a month of working on it...DO NOT TOUCH IT...please :)
+Dont ask me how it works either, I dont know.
+
+Built with raylib library
+
+
+entity:
+	VARIABLES:
+		scale: 		changes the size of the sprite.(float)
+		position: 	states the x and y values of the entity(vector2)
+		speed: 		the speed on the x axis at which the entity moves.(float)
+		jump_speed: 	the initial velocity with which the object jumps.(float)
+		sprite: 	the 2d image that represents the entity.(texture2d)
+		living_state: 	Represents whether or not the entity is dead or alive.(boolean)
+		jump_flag : 	determines whether or not the entity can jump.(boolean)
+		bool move_left_flag: 	determines whether or not the entity can move to the left. Example if there are no obstack=les to the left the falg would be true.(boolean)
+		bool move_right_flag: 	Determines whether or not the entity can move to the right. Example if there are no objects to the right, the flag would be true.(boolean)
+		hitboxVisible: 	Determines whether the hitboxs are visible or not.(Boolean)
+	
+	METHODS:
+		update_entity(): 	draws entity on the screen.(void)
+					no parameters.
+					
+		get_hitbox:	returns the hitbox in the form of a rectangle structure.(float)
+				no parameters.
+				
+		get_width: 	returns the width of the hitbox.(float)
+				no parameters.
+		
+		get_height:	returns the height of the entity.(float)
+				no parameters.
+
+Player:
+	(inherits from entity)
+	
+		VARIABLES:
+		
+		METHODS:
+			Player: cosntructor(void)
+				No parameters
+	
+			player_movement: 	Moves the sprite based on keyboard input.(void)
+						parameters: (float pointer "deltaTime") used to determine actual time.
+
+EnemyEntity:
+
+	(inherits from entity)
+	
+	Variables: 
+		move_state: Determines if the enemyEntity is moving left or right.(boolean)
+	
+	METHODS:
+		none
+	
+Goomba:
+
+	(inherits from EnemyEntity)
+	
+	VARIABLES:
+		none
+		
+	METHODS:
+		goomba_update_movement: 	moves goomba depending on the move_state variable(EnemyEntity).(void)
+						parameters: (float pointer "deltaTime") used to determine actual time.
+						
+Background_art:
+	
+	VARIABLES:
+		position: States the position of the background art.(vector 2)
+		env_texture: stores the actual png image used for the environment texture.(texture 2d)
+	
+	METHODS:
+		void draw_environment: Draws the environment on the screen.(void)
+		no parameters
+
+
