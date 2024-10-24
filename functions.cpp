@@ -13,10 +13,10 @@ void gravity_update(Entity *entity){
 
 void draw_All_Hitboxes(Block *blocks, int blocks_length, Pipe *Pipes, int pipe_Length){
 	for (int i = 0; i < blocks_length; i++){
-		blocks[i].draw_block_hitbox();
+		blocks[i].draw_hitbox();
 	}
 	for (int i = 0; i < pipe_Length; i++){
-		Pipes[i].draw_block_hitbox();
+		Pipes[i].draw_hitbox();
 	}
 }
 void draw_All_Entites(Goomba* goomba_Array, int goomba_Length){

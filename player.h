@@ -58,7 +58,7 @@ struct EnemyEntity:Entity{
 	bool move_State = false;
 };
 struct Goomba:EnemyEntity{
-	Goomba(float x = 1300, float y = 370, float sprite_scale = 2){
+	Goomba(float x = 1300, float y = 370, float sprite_scale = 1.95){
 		position = {x, y};
 		scale = sprite_scale;
 		speed = 100;
@@ -74,6 +74,5 @@ struct Goomba:EnemyEntity{
 			position.x += speed * * delta;
 		}
 	}
-	void player
 };
 #endif

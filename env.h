@@ -11,10 +11,54 @@ struct Background_art{
 	}
 };
 
+struct PowerUp{
+	Texture2D powerUpSprite;
+	Vector2 position = {0,0};
+	int scale = 1.95;
+	int speed = 120;
+	bool moveState = false;
+	bool hitboxVisible = false;
+	
+	void drawPowerUp(){
+		if (hitboxVisible){DrawRectangleLinesEx(get_hitbox(), 2, RED);}
+		DrawTextureEx(powerUpSprite, position, 0, scale, WHITE);
+	}
+	
+	void movePowerUp(float* delta){
+		if (!moveState){
+			drawPowerUp();
+			position.x -= speed * *delta;
+		}else{
+			drawPowerUp();
+			position.x += speed * * delta;
+		}
+	}
+	Rectangle get_hitbox(){
+		return Rectangle{position.x, position.y, get_width(), get_height()};
+	}
+	float get_width(){
+		return powerUpSprite.width * scale;
+	}
+	float get_height(){
+		return powerUpSprite.height * scale;
+	}
+};
+struct MushroomPowerUp:PowerUp{
+	
+	MushroomPowerUp(float x = 0, float y = 0, bool move = false, bool visibility = false){
+		position = {x, y};
+		hitboxVisible = visibility;
+		scale = 1.95;
+		moveState = move;
+		powerUpSprite = LoadTexture("texture/Mushroom Sprite.png");
+	}
+	
+};
+
 struct Ground{
 	Vector2 position = {0, 0};
 	Vector2 size = {35, 32};
-	Texture2D env_texture;
+	Texture2D blockSprite;
 	
 	Rectangle get_hitbox(){
 		return Rectangle{position.x, position.y, size.x, size.y};
@@ -22,10 +66,13 @@ struct Ground{
 };
 
 struct Block:Ground{
+	float scale = 1.95;
+	
 	Block(){
 		size.x = 35;
 		size.y = 32;
 	}
+	
 	Block(float pos_x, float pos_y, float size_x = 35, float size_y = 32){
 		position.x = pos_x;
 		position.y = pos_y;
@@ -33,23 +80,29 @@ struct Block:Ground{
 		size.y = size_y;
 	}
 
-	void draw_block_hitbox(){
+	void draw_hitbox(){
 		DrawRectangleLinesEx(get_hitbox(), 2, GREEN);
 	}
+	void drawBlock(){
+		DrawTextureEx(blockSprite, position, 0, scale, WHITE);
+	}
 };
-struct Mystery_Block:Block{
-	Mystery_Block(){
+struct MysteryBlock:Block{
+	PowerUp powerUp;
+	bool state_Used = false;	
+	
+	MysteryBlock(){
 		size.x = 35;
 		size.y = 32;
 	}
-	Mystery_Block(float pos_x, float pos_y, float size_x = 35, float size_y = 32){
+	MysteryBlock(float pos_x, float pos_y, PowerUp specificPowerUp, float size_x = 35, float size_y = 32){
 		position.x = pos_x;
 		position.y = pos_y;
 		size.x = size_x;
 		size.y = size_y;
-	}
-	 bool state_Used = false;
-	 
+		powerUp = specificPowerUp;
+		blockSprite = LoadTexture("texture/mysteryBlock.png");
+	} 
 };
 
 struct Pipe:Block{

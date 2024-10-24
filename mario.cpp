@@ -51,11 +51,16 @@ int main(){
 	//Goomba goomba_array= {}
 	Goomba goomba;
 	
-	Block blocks[] = {{0, 404, 2152, 63}, {497, 281}, {0,-100, 10, 1000}, {623, 281}, {655, 281}, {687, 281}, {685, 156}};
+	MushroomPowerUp mushroom = MushroomPowerUp(685, 156, true);
+	MysteryBlock mystery = MysteryBlock(685, 156, mushroom);
+	
+	Block blocks[] = {{0, 404, 2152, 63}, {497, 281}, {0,-100, 10, 1000}, {623, 281}, {655, 281}, {687, 281}};
 	int blocks_length = sizeof(blocks)/sizeof(blocks[0]);
 	
 	Pipe test_Pipe[] = {{878, 344}};
 	int pipe_Length = sizeof(test_Pipe)/sizeof(test_Pipe[0]);
+	
+	
 	
 	
 	//camera setup
@@ -81,6 +86,11 @@ int main(){
 		camera.target = (Vector2){mario.position.x + 20, mario.position.y + 20};
 		
 		goomba.goomba_update_movement(&delta_time);
+		
+		mushroom.drawPowerUp();
+		mystery.draw_hitbox();
+		mystery.drawBlock();
+		
 		mario.update_entity();//draws entity at new position
 		gravity_update(&mario);
 		gravity_update(&goomba);
